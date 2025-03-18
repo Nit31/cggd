@@ -7,25 +7,26 @@ void cg::renderer::rasterization_renderer::init()
 {
 	rasterizer = std::make_shared<
 			cg::renderer::rasterizer<cg::vertex, cg::unsigned_color>>();
-	rasterizer->set_viewport(settings->width, settings->height);
+	rasterizer->set_viewport(
+			settings->width, settings->height);
+	
+	render_target = std::make_shared<cg::resource<cg::unsigned_color>>(settings->width, settings->height);
 
-	render_target = std::make_shared<cg::resource<cg::unsigned_color>>(
-			settings->width, settings->height);
-	depth_buffer = std::make_shared<cg::resource<float>>(
-			settings->width, settings->height);
+	depth_buffer = std::make_shared<cg::resource<float>>(settings->width, settings->height);
+
+	
 	rasterizer->set_render_target(render_target, depth_buffer);
-
+	// Load model
 	model = std::make_shared<cg::world::model>();
 	model->load_obj(settings->model_path);
-
+	
 	camera = std::make_shared<cg::world::camera>();
 	camera->set_height(static_cast<float>(settings->height));
 	camera->set_width(static_cast<float>(settings->width));
 	camera->set_position(float3{
 			settings->camera_position[0],
 			settings->camera_position[1],
-			settings->camera_position[2]
-	});
+			settings->camera_position[2]});
 	camera->set_phi(settings->camera_phi);
 	camera->set_theta(settings->camera_theta);
 	camera->set_angle_of_view(settings->camera_angle_of_view);

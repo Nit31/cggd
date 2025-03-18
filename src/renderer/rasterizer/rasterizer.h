@@ -111,7 +111,7 @@ namespace cg::renderer
 	inline void rasterizer<VB, RT>::draw(size_t num_vertexes, size_t vertex_offset)
 	{
 		size_t vertex_id = vertex_offset;
-		while (vertex_id < vertex_offset * num_vertexes)
+		while (vertex_id < vertex_offset + num_vertexes)
 		{
 			std::vector<VB> vertices(3);
 			vertices[0] = vertex_buffer->item(index_buffer->item(vertex_id++));
@@ -152,9 +152,9 @@ namespace cg::renderer
 				for (int y = bb_begin.y; y <=bb_end.y; y++)
 				{
 					int2 point{x, y};
-					float edge0 = edge_function(vertex_a, vertex_b, point);
-					float edge1 = edge_function(vertex_b, vertex_c, point);
-					float edge2 = edge_function(vertex_c, vertex_a, point);
+					int edge0 = edge_function(vertex_a, vertex_b, point);
+					int edge1 = edge_function(vertex_b, vertex_c, point);
+					int edge2 = edge_function(vertex_c, vertex_a, point);
 
 					if (edge0 >= 0.f && edge1 >= 0.f && edge2 >= 0.f)
 					{
