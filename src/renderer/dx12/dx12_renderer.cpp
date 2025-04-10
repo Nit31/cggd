@@ -355,7 +355,7 @@ void cg::renderer::dx12_renderer::load_assets()
 
 	for (size_t i = 0; i < model->get_index_buffers().size(); ++i) {
 		auto vertex_buffer_data = model->get_vertex_buffers()[i];
-		const UINT vertex_buffer_size = static_cast<UINT>(vertex_buffer_data->get_size_in_bytes());
+		const UINT vertex_buffer_size = static_cast<UINT>(vertex_buffer_data->size_bytes());
 
 		std::wstring vertex_buffer_name(L"Vertex buffer ");
 		vertex_buffer_name += std::to_wstring(i);
@@ -365,7 +365,7 @@ void cg::renderer::dx12_renderer::load_assets()
 
 		vertex_buffer_views[i] = create_vertex_buffer_view(vertex_buffers[i], vertex_buffer_size);
 		auto index_buffer_data = model->get_index_buffers()[i];
-		const UINT index_buffer_size = static_cast<UINT>(index_buffer_data->get_size_in_bytes());
+		const UINT index_buffer_size = static_cast<UINT>(index_buffer_data->size_bytes());
 
 		std::wstring index_buffer_name(L"Index buffer ");
 		index_buffer_name += std::to_wstring(i);
